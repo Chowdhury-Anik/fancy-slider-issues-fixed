@@ -19,6 +19,7 @@ const KEY = '15674931-a9d714b6e9d654524df198e00&q';
 const showImages = (images) => {
   imagesArea.style.display = 'block';
   gallery.innerHTML = '';
+  
   // show gallery title
   galleryHeader.style.display = 'flex';
   images.forEach(image => {
@@ -29,21 +30,35 @@ const showImages = (images) => {
   })
 
 }
-//keypress button impelmentation 
 
+
+//Search button setting  with Enter key from keyboard
 document.getElementById("search").addEventListener("keypress", function(event){
-  
   if (event.key === "Enter"){
     document.getElementById("search-btn").click();
 }
 
 })
+//Slider search button setting with enter key from keyboard.
+document.getElementById("duration").addEventListener("keypress", function(event){
+  if(event.key === "Enter"){
+    sliderBtn.click();
+  }
+  
+})
+
 
 const getImages = (query) => {
-  fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
+  //empty search input warning message
+  let searchInput = document.getElementById("search").value;
+  if (searchInput ===""){
+    gallery.innerHTML =`
+    <h3>Please ! Write something into search field.</h3>`;
+  }
+  else { fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
     .then(response => response.json())
     .then(data => showImages(data.hits))
-    .catch(err => console.log(err))
+  }
 }
 
 let slideIndex = 0;
@@ -76,9 +91,30 @@ const createSlider = () => {
 
   sliderContainer.appendChild(prevNext)
   document.querySelector('.main').style.display = 'block';
+  
   // hide image aria
   imagesArea.style.display = 'none';
   const duration = document.getElementById('duration').value || 1000;
+  if (duration > 0 ){
+    sliders.forEach(slide => {
+      let item = document.createElement('div')
+      item.className = "slider-item";
+      item.innerHTML = `<img class="w-100"
+      src="${slide}"
+      alt="">`;
+      sliderContainer.appendChild(item)
+    })
+    changeSlide(0)
+    timer = setInterval(function () {
+      slideIndex++;
+      changeSlide(slideIndex);
+    }, duration);
+  } else {
+    //negative value warning .
+  let duration = 1000;
+  let negativeDuration = document.getElementById("sliders");
+  negativeDuration.innerHTML =`<p class="text-danger"> Sorry Dude! Duration can't be negative value. It's automatically set the default value .</p>`;
+  
   sliders.forEach(slide => {
     let item = document.createElement('div')
     item.className = "slider-item";
@@ -92,6 +128,9 @@ const createSlider = () => {
     slideIndex++;
     changeSlide(slideIndex);
   }, duration);
+
+  }
+  
 }
 
 // change slider index 
@@ -104,7 +143,7 @@ const changeSlide = (index) => {
 
   const items = document.querySelectorAll('.slider-item');
   if (index < 0) {
-    slideIndex = items.length - 1
+    slideIndex = items.length -1
     index = slideIndex;
   };
 
@@ -130,4 +169,9 @@ searchBtn.addEventListener('click', function () {
 
 sliderBtn.addEventListener('click', function () {
   createSlider()
+})
+
+//Start a new slider
+document.getElementById("closeButton").addEventListener('click', function(){
+  document.querySelector('.main').style.display = 'none';
 })
