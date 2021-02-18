@@ -1,1 +1,1 @@
-# facny-slider-bug-fixed
+# fancy-slider-issues-fixed
