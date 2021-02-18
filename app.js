@@ -1,3 +1,5 @@
+
+
 const imagesArea = document.querySelector('.images');
 const gallery = document.querySelector('.gallery');
 const galleryHeader = document.querySelector('.gallery-header');
@@ -27,11 +29,20 @@ const showImages = (images) => {
   })
 
 }
+//keypress button impelmentation 
+
+document.getElementById("search").addEventListener("keypress", function(event){
+  
+  if (event.key === "Enter"){
+    document.getElementById("search-btn").click();
+}
+
+})
 
 const getImages = (query) => {
   fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
     .then(response => response.json())
-    .then(data => showImages(data.hitS))
+    .then(data => showImages(data.hits))
     .catch(err => console.log(err))
 }
 
