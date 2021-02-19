@@ -49,7 +49,7 @@ document.getElementById("duration").addEventListener("keypress", function(event)
 
 
 const getImages = (query) => {
-  //empty search input warning message
+  //empty search input warning message for bonus marks
   let searchInput = document.getElementById("search").value;
   if (searchInput ===""){
     gallery.innerHTML =`
