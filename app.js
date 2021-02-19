@@ -68,12 +68,15 @@ const selectItem = (event, img) => {
   let item = sliders.indexOf(img);
   if (item === -1) {
     sliders.push(img);
-    element.style.visibility = 'hidden';
-    alert('Hey, Already added !')
-  } 
-  // else {
     // alert('Hey, Already added !')
-  // }
+  } 
+  else {
+    element.remove(img);
+    alert('Hey,If you double click then Your Image will be removed !')
+  }
+  // else {
+  //   // element.classList.remove();
+  //   }
 }
 
 
