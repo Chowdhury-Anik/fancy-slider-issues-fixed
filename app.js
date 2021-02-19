@@ -68,16 +68,14 @@ const selectItem = (event, img) => {
   let item = sliders.indexOf(img);
   if (item === -1) {
     sliders.push(img);
-    // alert('Hey, Already added !')
+    alert('Hey, Already added !')
   } 
   else {
+    //image will be remove after duble click
     element.remove(img);
     alert('Hey,If you double click then Your Image will be removed !')
   }
-  // else {
-  //   // element.classList.remove();
-  //   }
-}
+  
 
 
 
@@ -122,7 +120,7 @@ const createSlider = () => {
       changeSlide(slideIndex);
     }, duration);
   } else {
-    //negative value warning .
+    //negative value warning worning for bonus marks
   let duration = 1000;
   let negativeDuration = document.getElementById("sliders");
   negativeDuration.innerHTML =`<p class="text-danger"> Sorry Dude! Duration can't be negative value. It's automatically set the default value .</p>`;
