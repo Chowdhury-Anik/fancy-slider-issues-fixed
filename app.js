@@ -65,14 +65,23 @@ let slideIndex = 0;
 const selectItem = (event, img) => {
   let element = event.target;
   element.classList.add('added');
- 
   let item = sliders.indexOf(img);
   if (item === -1) {
     sliders.push(img);
-  } else {
+    element.style.visibility = 'hidden';
     alert('Hey, Already added !')
-  }
+  } 
+  // else {
+    // alert('Hey, Already added !')
+  // }
 }
+
+
+
+
+
+
+
 var timer
 const createSlider = () => {
   // check slider image length
